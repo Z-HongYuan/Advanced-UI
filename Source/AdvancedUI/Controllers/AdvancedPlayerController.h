@@ -7,9 +7,9 @@
 #include "AdvancedPlayerController.generated.h"
 
 /**
- * 
+ * 在特定事件中设置摄像机目标的类
  */
-UCLASS()
+UCLASS(Abstract)
 class ADVANCEDUI_API AAdvancedPlayerController : public APlayerController
 {
 	GENERATED_BODY()
