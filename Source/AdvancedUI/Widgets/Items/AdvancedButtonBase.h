@@ -35,6 +35,9 @@ protected:
 	//预构建
 	virtual void NativePreConstruct() override;
 
+	//按钮提供的文本样式改变函数,需要覆写
+	virtual void NativeOnCurrentTextStyleChanged() override;
+
 private:
 	//可选绑定 按钮的文本控件
 	UPROPERTY(meta=(BindWidgetOptional))

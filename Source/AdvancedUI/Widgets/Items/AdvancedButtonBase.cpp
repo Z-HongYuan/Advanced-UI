@@ -13,7 +13,15 @@ void UAdvancedButtonBase::SetButtonText(const FText& InText)
 
 void UAdvancedButtonBase::NativePreConstruct()
 {
-	Super::NativePreConstruct(); 
+	Super::NativePreConstruct();
 
 	SetButtonText(ButtonDisplayText);
+}
+
+void UAdvancedButtonBase::NativeOnCurrentTextStyleChanged()
+{
+	Super::NativeOnCurrentTextStyleChanged();
+
+	if (CommonTextBlock_ButtonText && GetCurrentTextStyleClass())
+		CommonTextBlock_ButtonText->SetStyle(GetCurrentTextStyleClass());
 }
