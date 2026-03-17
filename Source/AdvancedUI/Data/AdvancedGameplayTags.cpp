@@ -17,6 +17,9 @@ namespace AdvancedGameplayTags
 
 	//任意键界面
 	UE_API UE_DEFINE_GAMEPLAY_TAG_COMMENT(AdvancedTagUI_Widget_AnyKey, "AdvancedTagUI.Widget.AnyKey", "任意键界面的Tag")
+	
+	//主菜单界面
+	UE_API UE_DEFINE_GAMEPLAY_TAG_COMMENT(AdvancedTagUI_Widget_MainMenu, "AdvancedTagUI.Widget.MainMenu", "主菜单界面的Tag")
 }
 
 #undef UE_API
