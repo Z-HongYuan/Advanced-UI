@@ -42,7 +42,7 @@ void UAdvancedUIManager::PushSoftWidgetToStackAsync(const FGameplayTag& InStackT
 				if (!InWidgetClass) return;
 
 				/*添加控件到栈内*/
-				UAdvancedActivatableWidget* WidgetInstance = PrimaryLayoutWidget->GetWidgetStackByTag(InStackTag)->AddWidget<UAdvancedActivatableWidget>(
+				UAdvancedActivatableWidget* WidgetInstance = GetPrimaryLayoutWidget()->GetWidgetStackByTag(InStackTag)->AddWidget<UAdvancedActivatableWidget>(
 					InWidgetClass.Get(),
 
 					/*添加完成后调用传递的状态回调函数*/

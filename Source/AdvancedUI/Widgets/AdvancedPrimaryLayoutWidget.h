@@ -10,7 +10,7 @@
 class UCommonActivatableWidgetContainerBase;
 
 /**
- * 主要的布局Widget
+ * 主要的布局RootWidget
  */
 UCLASS(Abstract)
 class ADVANCEDUI_API UAdvancedPrimaryLayoutWidget : public UCommonUserWidget
@@ -18,6 +18,9 @@ class ADVANCEDUI_API UAdvancedPrimaryLayoutWidget : public UCommonUserWidget
 	GENERATED_BODY()
 
 public:
+	/*
+	 * 其实这两个函数也没啥必要公开给蓝图,因为大概率会使用异步Node来推送控件
+	 */
 	UFUNCTION(BlueprintCallable, Category = "AdvancedPrimaryLayoutWidget")
 	void RegisterWidgetStack(
 		UPARAM(meta = (Categories = "AdvancedTagUI"))const FGameplayTag InTag,
@@ -27,10 +30,11 @@ public:
 	UCommonActivatableWidgetContainerBase* GetWidgetStackByTag(const FGameplayTag& InTag) const;
 
 protected:
-	//初始化的时候就注册所有栈
+	//初始化的时候就注册所有栈,并且将自身注册到子系统中
 	virtual void NativeOnInitialized() override;
 
 private:
+	//保存的栈引用,使用Map快速查找
 	UPROPERTY(Transient)
 	TMap<FGameplayTag, UCommonActivatableWidgetContainerBase*> WidgetStacks;
 

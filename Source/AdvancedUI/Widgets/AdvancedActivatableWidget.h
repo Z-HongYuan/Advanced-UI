@@ -7,9 +7,9 @@
 #include "AdvancedActivatableWidget.generated.h"
 
 /**
- * 
+ * 支持推送到栈的Widget,这是基类
  */
-UCLASS()
+UCLASS(Abstract)
 class ADVANCEDUI_API UAdvancedActivatableWidget : public UCommonActivatableWidget
 {
 	GENERATED_BODY()

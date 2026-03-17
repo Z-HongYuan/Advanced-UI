@@ -10,6 +10,9 @@ class UAdvancedActivatableWidget;
 class UAdvancedPrimaryLayoutWidget;
 struct FGameplayTag;
 
+/*
+ * 这个是添加Widget的异步状态枚举
+ */
 UENUM(BlueprintType)
 enum class EAsyncState : uint8
 {
@@ -26,6 +29,7 @@ class ADVANCEDUI_API UAdvancedUIManager : public UGameInstanceSubsystem
 	GENERATED_BODY()
 
 public:
+	//避免专用服务器创建
 	virtual bool ShouldCreateSubsystem(UObject* Outer) const override;
 
 	void RegisterPrimaryLayoutWidget(UAdvancedPrimaryLayoutWidget* InWidget);
@@ -39,6 +43,7 @@ public:
 	                                TFunction<void(EAsyncState, UAdvancedActivatableWidget*)> InPushStateCallback) const;
 
 private:
+	//在Widget中传入保存的引用
 	UPROPERTY(Transient)
 	TWeakObjectPtr<UAdvancedPrimaryLayoutWidget> PrimaryLayoutWidget;
 };
