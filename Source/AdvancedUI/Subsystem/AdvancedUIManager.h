@@ -20,6 +20,8 @@ enum class EAsyncState : uint8
 	OnPushed //添加成功后
 };
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnDescriptionChanged,UAdvancedButtonBase*,InButton, FText, NewDescription);
+
 /**
  * 用于方便使用UI的子系统
  */
@@ -42,6 +44,8 @@ public:
 	                                TSoftClassPtr<UAdvancedActivatableWidget> InWidgetClass,
 	                                TFunction<void(EAsyncState, UAdvancedActivatableWidget*)> InPushStateCallback) const;
 
+	UPROPERTY(BlueprintAssignable)
+	FOnDescriptionChanged OnDescriptionChanged;
 private:
 	//在Widget中传入保存的引用
 	UPROPERTY(Transient)
