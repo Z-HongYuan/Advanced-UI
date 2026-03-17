@@ -3,4 +3,4 @@
 #include "AdvancedUI.h"
 #include "Modules/ModuleManager.h"
 
-IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, AdvancedUI, "AdvancedUI" );
+IMPLEMENT_PRIMARY_GAME_MODULE(FDefaultGameModuleImpl, AdvancedUI, "AdvancedUI");

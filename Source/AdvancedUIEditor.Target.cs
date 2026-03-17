@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class AdvancedUIEditorTarget : TargetRules
 {
-	public AdvancedUIEditorTarget( TargetInfo Target) : base(Target)
+	public AdvancedUIEditorTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
 		DefaultBuildSettings = BuildSettingsVersion.V6;
