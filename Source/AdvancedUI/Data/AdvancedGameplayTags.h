@@ -14,6 +14,9 @@ namespace AdvancedGameplayTags
 	UE_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(AdvancedTagUI_WidgetStack_GameMenu);
 	UE_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(AdvancedTagUI_WidgetStack_GameHUD);
 	UE_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(AdvancedTagUI_WidgetStack_Frontend);
+
+	//任意键界面
+	UE_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(AdvancedTagUI_Widget_AnyKey);
 }
 
 #undef UE_API

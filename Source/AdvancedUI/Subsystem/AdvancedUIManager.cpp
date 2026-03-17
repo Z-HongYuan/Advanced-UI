@@ -24,13 +24,19 @@ void UAdvancedUIManager::RegisterPrimaryLayoutWidget(UAdvancedPrimaryLayoutWidge
 UAdvancedPrimaryLayoutWidget* UAdvancedUIManager::GetPrimaryLayoutWidget() const
 {
 	if (PrimaryLayoutWidget.IsValid()) return PrimaryLayoutWidget.Get();
+
+	UE_LOG(LogTemp, Warning, TEXT("PrimaryLayoutWidget is not valid"));
 	return nullptr;
 }
 
 void UAdvancedUIManager::PushSoftWidgetToStackAsync(const FGameplayTag& InStackTag, TSoftClassPtr<UAdvancedActivatableWidget> InWidgetClass,
                                                     TFunction<void(EAsyncState, UAdvancedActivatableWidget*)> InPushStateCallback) const
 {
-	if (!InWidgetClass) return;
+	//这个是错误的,如果软引用没有加载,这个将会一直为空,所以这里会一直返回
+	//或者增强逻辑就使用IsPending判断是否已经加载,未加载才走异步Loading,已加载的话直接推送页面
+	// if (!InWidgetClass) return;
+
+	if (InWidgetClass.IsNull()) return;
 
 	/*加载软路径引用*/
 	UAssetManager::Get().GetStreamableManager().RequestAsyncLoad(

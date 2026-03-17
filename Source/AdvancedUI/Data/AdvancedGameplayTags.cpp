@@ -14,6 +14,9 @@ namespace AdvancedGameplayTags
 	UE_API UE_DEFINE_GAMEPLAY_TAG_COMMENT(AdvancedTagUI_WidgetStack_GameMenu, "AdvancedTagUI.WidgetStack.GameMenu", "主界面中的游戏菜单栈Tag")
 	UE_API UE_DEFINE_GAMEPLAY_TAG_COMMENT(AdvancedTagUI_WidgetStack_GameHUD, "AdvancedTagUI.WidgetStack.GameHUD", "主界面中的游戏HUD栈Tag")
 	UE_API UE_DEFINE_GAMEPLAY_TAG_COMMENT(AdvancedTagUI_WidgetStack_Frontend, "AdvancedTagUI.WidgetStack.Frontend", "主界面中的前台栈Tag")
+
+	//任意键界面
+	UE_API UE_DEFINE_GAMEPLAY_TAG_COMMENT(AdvancedTagUI_Widget_AnyKey, "AdvancedTagUI.Widget.AnyKey", "任意键界面的Tag")
 }
 
 #undef UE_API
