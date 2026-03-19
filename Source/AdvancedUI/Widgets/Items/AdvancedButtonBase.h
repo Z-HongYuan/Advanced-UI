@@ -37,7 +37,7 @@ protected:
 
 	//按钮提供的文本样式改变函数,需要覆写
 	virtual void NativeOnCurrentTextStyleChanged() override;
-	
+
 	//悬停和离开的函数,覆写用于广播描述文本
 	virtual void NativeOnHovered() override;
 	virtual void NativeOnUnhovered() override;

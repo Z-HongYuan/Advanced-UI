@@ -23,9 +23,12 @@ namespace AdvancedGameplayTags
 
 	//模版弹窗界面
 	UE_API UE_DEFINE_GAMEPLAY_TAG_COMMENT(AdvancedTagUI_Widget_Pop, "AdvancedTagUI.Widget.Pop", "模版弹窗界面的Tag")
-	
+
 	//Story界面
 	UE_API UE_DEFINE_GAMEPLAY_TAG_COMMENT(AdvancedTagUI_Widget_Story, "AdvancedTagUI.Widget.Story", "Story界面的Tag")
+
+	//选项界面
+	UE_API UE_DEFINE_GAMEPLAY_TAG_COMMENT(AdvancedTagUI_Widget_Options, "AdvancedTagUI.Widget.Options", "选项界面的Tag")
 }
 
 #undef UE_API

@@ -30,13 +30,12 @@ void UAdvancedButtonBase::NativeOnCurrentTextStyleChanged()
 void UAdvancedButtonBase::NativeOnHovered()
 {
 	Super::NativeOnHovered();
-	
+
 	const UAdvancedUIManager* AdvancedUIManager = GetGameInstance()->GetSubsystem<UAdvancedUIManager>();
 	if (AdvancedUIManager && !ButtonDescriptionText.IsEmpty())
 	{
 		AdvancedUIManager->OnDescriptionChanged.Broadcast(this, ButtonDescriptionText);
 	}
-	
 }
 
 void UAdvancedButtonBase::NativeOnUnhovered()
