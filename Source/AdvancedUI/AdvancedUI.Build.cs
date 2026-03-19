@@ -10,7 +10,7 @@ public class AdvancedUI : ModuleRules
 
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput" });
 
-		PrivateDependencyModuleNames.AddRange(new string[] { "CommonUI", "GameplayTags", "UMG", "DeveloperSettings" });
+		PrivateDependencyModuleNames.AddRange(new string[] { "CommonUI", "CommonInput", "GameplayTags", "UMG", "DeveloperSettings" });
 
 		// Uncomment if you are using Slate UI
 		PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

@@ -6,6 +6,8 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "AdvancedUIManager.generated.h"
 
+enum class EConfirmPopButtonType : uint8;
+enum class EConfirmPopType : uint8;
 class UAdvancedActivatableWidget;
 class UAdvancedPrimaryLayoutWidget;
 struct FGameplayTag;
@@ -20,7 +22,7 @@ enum class EAsyncState : uint8
 	OnPushed //添加成功后
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnDescriptionChanged,UAdvancedButtonBase*,InButton, FText, NewDescription);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnDescriptionChanged, UAdvancedButtonBase*, InButton, FText, NewDescription);
 
 /**
  * 用于方便使用UI的子系统
@@ -44,8 +46,17 @@ public:
 	                                TSoftClassPtr<UAdvancedActivatableWidget> InWidgetClass,
 	                                TFunction<void(EAsyncState, UAdvancedActivatableWidget*)> InPushStateCallback) const;
 
+	/*
+	 * 添加异步推送Pop的函数,此函数用于在C++中推送弹窗
+	 */
+	void PushPopWidgetToStackAsync(EConfirmPopType InPopType,
+	                               const FText& InPopTitle,
+	                               const FText& InPopContent,
+	                               TFunction<void(EConfirmPopButtonType)> InButtonClickCallback) const;
+
 	UPROPERTY(BlueprintAssignable)
 	FOnDescriptionChanged OnDescriptionChanged;
+
 private:
 	//在Widget中传入保存的引用
 	UPROPERTY(Transient)

@@ -3,8 +3,12 @@
 
 #include "AdvancedUIManager.h"
 
+#include "AdvancedUI/Data/AdvancedGameplayTags.h"
+#include "AdvancedUI/Data/AdvancedUIType.h"
+#include "AdvancedUI/FunctionLibrary/AdvancedFunctionLibrary.h"
 #include "AdvancedUI/Widgets/AdvancedActivatableWidget.h"
 #include "AdvancedUI/Widgets/AdvancedPrimaryLayoutWidget.h"
+#include "AdvancedUI/Widgets/Items/AdvancedConfirmPopWidget.h"
 #include "Engine/AssetManager.h"
 #include "Widgets/CommonActivatableWidgetContainer.h"
 
@@ -61,5 +65,48 @@ void UAdvancedUIManager::PushSoftWidgetToStackAsync(const FGameplayTag& InStackT
 				InPushStateCallback(EAsyncState::OnPushed, WidgetInstance);
 			}
 		)
+	);
+}
+
+void UAdvancedUIManager::PushPopWidgetToStackAsync(EConfirmPopType InPopType, const FText& InPopTitle, const FText& InPopContent,
+                                                   TFunction<void(EConfirmPopButtonType)> InButtonClickCallback) const
+{
+	/*根据弹窗的类型,调用对应的弹窗信息构建函数*/
+	UAdvancedConfirmPopInfoObject* PopInfoObject;
+	switch (InPopType)
+	{
+	case EConfirmPopType::Ok:
+		PopInfoObject = UAdvancedConfirmPopInfoObject::CreatePopInfoForOK(InPopTitle, InPopContent);
+		break;
+	case EConfirmPopType::YesNo:
+		PopInfoObject = UAdvancedConfirmPopInfoObject::CreatePopInfoForYesNo(InPopTitle, InPopContent);
+		break;
+	case EConfirmPopType::OKCancel:
+		PopInfoObject = UAdvancedConfirmPopInfoObject::CreatePopInfoForOKCancel(InPopTitle, InPopContent);
+		break;
+	case EConfirmPopType::None:
+		break;
+	}
+
+	/*
+	 * 开始推送控件,使用之前的异步推送函数,并且在构建完成后调用初始化函数
+	 * 固定推送控件到Modal栈内
+	 * 使用开发者设置中的Tag-控件映射来获取具体使用的控件
+	 */
+	PushSoftWidgetToStackAsync(
+		AdvancedGameplayTags::AdvancedTagUI_WidgetStack_Modal,
+		UAdvancedFunctionLibrary::GetWidgetClassByTag(AdvancedGameplayTags::AdvancedTagUI_Widget_Pop),
+		/*当控件创建成功后,直接初始化控件,并且能够将当前函数传入的回调绑定在按钮上*/
+		[PopInfoObject, InButtonClickCallback](const EAsyncState InState, UAdvancedActivatableWidget* InPushedWidget)
+		{
+			if (InState == EAsyncState::OnCreate)
+			{
+				if (UAdvancedConfirmPopWidget* PopWidget = Cast<UAdvancedConfirmPopWidget>(InPushedWidget))
+				{
+					/*将回调传递到Widget中处理,绑定在按钮的点击函数中*/
+					PopWidget->InitConfirmPop(PopInfoObject, InButtonClickCallback);
+				}
+			}
+		}
 	);
 }

@@ -20,6 +20,9 @@ namespace AdvancedGameplayTags
 
 	//主菜单界面
 	UE_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(AdvancedTagUI_Widget_MainMenu);
+
+	//模版弹窗界面
+	UE_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(AdvancedTagUI_Widget_Pop);
 }
 
 #undef UE_API
