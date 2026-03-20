@@ -21,9 +21,9 @@ protected:
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "AdvancedUI|ButtonActions", meta = (RowType = "/Script/CommonUI.CommonInputActionDataBase"))
 	FDataTableRowHandle ResetAction;
-	
+
 	FUIActionBindingHandle ResetActionBindHandle;
-	
+
 	void OnResetActionTriggered();
 	void OnBackActionTriggered();
 };

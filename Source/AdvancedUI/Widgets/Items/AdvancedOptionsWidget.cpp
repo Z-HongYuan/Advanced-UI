@@ -19,13 +19,13 @@ void UAdvancedOptionsWidget::NativeOnInitialized()
 			FSimpleDelegate::CreateUObject(this, &UAdvancedOptionsWidget::OnResetActionTriggered)
 		));
 	}
-	
+
 	/*绑定默认的动作行为,如果这里处理了,在Widget中就不需要勾选显示默认的返回操作了*/
 	ResetActionBindHandle = RegisterUIActionBinding(FBindUIActionArgs(
-			ICommonInputModule::GetSettings().GetDefaultBackAction(),
-			true,
-			FSimpleDelegate::CreateUObject(this, &UAdvancedOptionsWidget::OnBackActionTriggered)
-		));
+		ICommonInputModule::GetSettings().GetDefaultBackAction(),
+		true,
+		FSimpleDelegate::CreateUObject(this, &UAdvancedOptionsWidget::OnBackActionTriggered)
+	));
 }
 
 void UAdvancedOptionsWidget::OnResetActionTriggered()
