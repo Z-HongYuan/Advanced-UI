@@ -3,7 +3,10 @@
 
 #include "AdvancedOptionsWidget.h"
 
+#include "AdvancedTabListWidget.h"
 #include "ICommonInputModule.h"
+#include "AdvancedUI/Widgets/Objects/OptionListDataObjectCollection.h"
+#include "AdvancedUI/Widgets/Objects/OptionListDataRegistry.h"
 #include "Input/CommonUIInputTypes.h"
 
 void UAdvancedOptionsWidget::NativeOnInitialized()
@@ -28,6 +31,22 @@ void UAdvancedOptionsWidget::NativeOnInitialized()
 	));
 }
 
+void UAdvancedOptionsWidget::NativeOnActivated()
+{
+	Super::NativeOnActivated();
+
+	/*在激活的时候就根据树形数据对象来创建对应的Buttons,并给按钮设置上文本
+	 * 构建数据集合的集合,并且根据集合来请求创建Button
+	 */
+	for (UOptionListDataObjectCollection* Element : GetOrCreateOptionListDataRegistry()->GetOptionListDataObjectCollectionArray())
+	{
+		if (!Element) continue;
+		FName DataID = Element->GetDataID();
+		if (AdvancedTabListWidget_Options->GetTabButtonBaseByID(DataID)) continue;//这个代表着已经创建过了
+		AdvancedTabListWidget_Options->RequestRegisterTab(DataID, Element->GetDataDisplayText());
+	}
+}
+
 void UAdvancedOptionsWidget::OnResetActionTriggered()
 {
 	/*触发后重置所有的参数*/
@@ -37,4 +56,18 @@ void UAdvancedOptionsWidget::OnBackActionTriggered()
 {
 	/*触发后返回*/
 	DeactivateWidget();
+}
+
+UOptionListDataRegistry* UAdvancedOptionsWidget::GetOrCreateOptionListDataRegistry()
+{
+	if (OptionListDataRegistry)
+	{
+		return OptionListDataRegistry;
+	}
+
+	OptionListDataRegistry = NewObject<UOptionListDataRegistry>();
+	OptionListDataRegistry->InitDataRegistry(GetOwningLocalPlayer());
+
+
+	return OptionListDataRegistry;
 }
