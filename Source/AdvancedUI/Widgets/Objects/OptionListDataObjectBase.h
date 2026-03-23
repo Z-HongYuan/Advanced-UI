@@ -11,6 +11,7 @@
 	FORCEINLINE DataTyp Get##PropertyName() const { return PropertyName;} \
 	FORCEINLINE void Set##PropertyName(DataTyp In##PropertyName) {PropertyName = In##PropertyName;}
 
+enum class EOptionDataChangeReason : uint8;
 /**
  * 提供给设置界面使用的数据对象基类,这是最基础的类,只提供必要的成员变量
  */
@@ -20,6 +21,11 @@ class ADVANCEDUI_API UOptionListDataObjectBase : public UObject
 	GENERATED_BODY()
 
 public:
+	DECLARE_MULTICAST_DELEGATE_TwoParams(FOnDataObjectChange, UOptionListDataObjectBase* DataObject, EOptionDataChangeReason Reason);
+
+	void NotifyDataObjectChange(UOptionListDataObjectBase* DataObject, EOptionDataChangeReason Reason);
+	FOnDataObjectChange OnDataObjectChange;
+
 	/*Getter和Setter,使用宏方法来执行批量处理*/
 	LIST_DATA_ACCESSOR(FName, DataID);
 	LIST_DATA_ACCESSOR(FText, DataDisplayText);

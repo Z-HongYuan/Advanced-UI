@@ -3,6 +3,7 @@
 
 #include "AdvancedOptionsWidget.h"
 
+#include "AdvancedListView.h"
 #include "AdvancedTabListWidget.h"
 #include "ICommonInputModule.h"
 #include "AdvancedUI/Widgets/Objects/OptionListDataObjectCollection.h"
@@ -29,6 +30,11 @@ void UAdvancedOptionsWidget::NativeOnInitialized()
 		true,
 		FSimpleDelegate::CreateUObject(this, &UAdvancedOptionsWidget::OnBackActionTriggered)
 	));
+
+	if (AdvancedTabListWidget_Options)
+	{
+		AdvancedTabListWidget_Options->OnTabSelected.AddUniqueDynamic(this, &UAdvancedOptionsWidget::OnTabSelectionChanged);
+	}
 }
 
 void UAdvancedOptionsWidget::NativeOnActivated()
@@ -42,8 +48,30 @@ void UAdvancedOptionsWidget::NativeOnActivated()
 	{
 		if (!Element) continue;
 		FName DataID = Element->GetDataID();
-		if (AdvancedTabListWidget_Options->GetTabButtonBaseByID(DataID)) continue;//这个代表着已经创建过了
+		if (AdvancedTabListWidget_Options->GetTabButtonBaseByID(DataID)) continue; //这个代表着已经创建过了
 		AdvancedTabListWidget_Options->RequestRegisterTab(DataID, Element->GetDataDisplayText());
+	}
+}
+
+void UAdvancedOptionsWidget::OnTabSelectionChanged(FName TabId)
+{
+	/*触发后根据数据更新选项卡*/
+
+	//屏幕上打印ID
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("TabId:%s"), *TabId.ToString()));
+
+	/*当某个选项卡被选中之后,获取到代表的所有数据选项,然后构建其对应的Widget*/
+	TArray<UOptionListDataObjectBase*> DataObjectArray = GetOrCreateOptionListDataRegistry()->GetOptionListDataObjectCollectionByID(TabId);
+
+	/*传递数据对象数组到ListView中进行处理*/
+	AdvancedListView_OptionsList->SetListItems(DataObjectArray);
+	AdvancedListView_OptionsList->RequestRefresh();
+
+	/*如果项目不为0的话,就导航到第一个选项*/
+	if (AdvancedListView_OptionsList->GetNumItems() != 0)
+	{
+		AdvancedListView_OptionsList->NavigateToIndex(0);
+		AdvancedListView_OptionsList->SetSelectedIndex(0);
 	}
 }
 

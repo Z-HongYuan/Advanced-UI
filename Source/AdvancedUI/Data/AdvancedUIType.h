@@ -27,3 +27,11 @@ enum class EConfirmPopButtonType : uint8
 	Close, //关闭
 	None UMETA(Hidden)
 };
+
+UENUM(BlueprintType)
+enum class EOptionDataChangeReason : uint8
+{
+	PlayerModification, //玩家修改
+	DependModification, //数据的依赖来修改
+	ResetModification, //重置的时候修改
+};

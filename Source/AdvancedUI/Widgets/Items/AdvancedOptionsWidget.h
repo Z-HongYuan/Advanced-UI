@@ -6,6 +6,7 @@
 #include "AdvancedUI/Widgets/AdvancedActivatableWidget.h"
 #include "AdvancedOptionsWidget.generated.h"
 
+class UAdvancedListView;
 class UAdvancedTabListWidget;
 class UOptionListDataRegistry;
 /**
@@ -23,11 +24,14 @@ protected:
 	virtual void NativeOnActivated() override;
 
 private:
+	/*绑定当前选项卡切换后*/
+	UFUNCTION()
+	void OnTabSelectionChanged(FName TabId);
+
+	/*绑定按钮提示,屏幕右下角的按钮提示*/
 	UPROPERTY(EditDefaultsOnly, Category = "AdvancedUI|ButtonActions", meta = (RowType = "/Script/CommonUI.CommonInputActionDataBase"))
 	FDataTableRowHandle ResetAction;
-
 	FUIActionBindingHandle ResetActionBindHandle;
-
 	void OnResetActionTriggered();
 	void OnBackActionTriggered();
 
@@ -39,4 +43,8 @@ private:
 	UPROPERTY(Transient)
 	TObjectPtr<UOptionListDataRegistry> OptionListDataRegistry;
 	UOptionListDataRegistry* GetOrCreateOptionListDataRegistry();
+
+	/*这个是绑定的左侧的视图列表,用于显示选项*/
+	UPROPERTY(meta=(BindWidget))
+	TObjectPtr<UAdvancedListView> AdvancedListView_OptionsList;
 };

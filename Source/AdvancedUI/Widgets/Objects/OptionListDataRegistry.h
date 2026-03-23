@@ -6,6 +6,7 @@
 #include "UObject/Object.h"
 #include "OptionListDataRegistry.generated.h"
 
+class UOptionListDataObjectBase;
 class UOptionListDataObjectCollection;
 
 /**
@@ -21,10 +22,14 @@ public:
 	/*为选项卡注册数据对象*/
 	void InitDataRegistry(ULocalPlayer* InLocalPlayer);
 
+	/*获取整个数据集合对象数组*/
 	const TArray<UOptionListDataObjectCollection*>& GetOptionListDataObjectCollectionArray() const
 	{
 		return OptionListDataObjectCollectionArray;
 	}
+
+	/*获取数据集合对象,通过FName来获取*/
+	TArray<UOptionListDataObjectBase*> GetOptionListDataObjectCollectionByID(const FName& InSelectedID) const;
 
 private:
 	//初始化游戏,音效,显示,控制四个选项卡

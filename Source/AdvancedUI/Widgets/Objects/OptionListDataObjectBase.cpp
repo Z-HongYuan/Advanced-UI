@@ -3,6 +3,11 @@
 
 #include "OptionListDataObjectBase.h"
 
+void UOptionListDataObjectBase::NotifyDataObjectChange(UOptionListDataObjectBase* DataObject, EOptionDataChangeReason Reason)
+{
+	OnDataObjectChange.Broadcast(DataObject, Reason);
+}
+
 void UOptionListDataObjectBase::InitDataObject()
 {
 	OnDataObjectInited();
